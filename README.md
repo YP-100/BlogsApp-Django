@@ -4,6 +4,17 @@
 
 A multi-user blog platform built with Django, offering a seamless experience for users and administrators to manage blog posts, profiles, and user permissions.
 
+
+
+## 📂 Project Presentation
+
+The `ppt` folder contains the PowerPoint presentation of the PostScribers project.
+
+📁 [View PPT Folder](./ppt)
+
+> Includes an overview of the project, features, and system architecture.
+
+
 ## 🚀 Features
 
 ### 👤 User Features
