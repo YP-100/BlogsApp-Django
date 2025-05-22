@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-primary bg-primary fixed-top">
+  <div class="container">
+    {% if request.user.is_authenticated %}
+    <a class="navbar-brand text-white" href="{% url 'blog-index' %}">PostScribers</a>
+    <form class="form-inline my-2 my-lg-0 mr-auto" method="get" action="{% url 'blog-index' %}">
+        <input
+          class="form-control mr-sm-2"
+          type="search"
+          name="q"
+          placeholder="Search posts..."
+          aria-label="Search"
+        >
+        <button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link text-white" href="{% url 'users-profile' %}">
+            Profile <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <form method="post" action="{% url 'users-logout' %}">
+            {% csrf_token %}
+            <button
+              type="submit"
+              class="nav-link text-white"
+              style="background: none; border: none; cursor: pointer"
+            >
+              Logout
+            </button>
+          </form>
+        </li>
+      </ul>
+    </div>
+    {% else %}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link text-white" href="{% url 'users-sign-up' %}">
+            Sign Up <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'users-login' %}">Login</a>
+        </li>
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</nav>

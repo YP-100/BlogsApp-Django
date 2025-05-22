@@ -1,0 +1,78 @@
+{% extends 'partials/base.html' %}
+{% block title %}Home Page{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-md-3 col-xl-2 px-sm-2 px-0 bg-light sticky-top vh-100">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-4">
+                <h5 class="mb-4">Categories</h5>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100">
+                   <li class="nav-item w-100 {% if not current_category %}active{% endif %}">
+                        <a href="{% url 'blog-index' %}" class="nav-link px-3 py-2 {% if not current_category %}bg-primary text-white{% endif %}">All Posts</a>
+                    </li>
+                    <li class="nav-item w-100 {% if current_category == 'Gaming' %}active{% endif %}">
+                        <a href="{% url 'blog-index' %}?category=Gaming" class="nav-link px-3 py-2 {% if current_category == 'Gaming' %}bg-primary text-white{% endif %}">Gaming</a>
+                    </li>
+                    <li class="nav-item w-100 {% if current_category == 'Entertainment' %}active{% endif %}">
+                        <a href="{% url 'blog-index' %}?category=Entertainment" class="nav-link px-3 py-2 {% if current_category == 'Entertainment' %}bg-primary text-white{% endif %}">Entertainment</a>
+                    </li>
+                    <li class="nav-item w-100 {% if current_category == 'Sports' %}active{% endif %}">
+                        <a href="{% url 'blog-index' %}?category=Sports" class="nav-link px-3 py-2 {% if current_category == 'Sports' %}bg-primary text-white{% endif %}">Sports</a>
+                    </li>
+                    <li class="nav-item w-100 {% if current_category == 'News' %}active{% endif %}">
+                        <a href="{% url 'blog-index' %}?category=News" class="nav-link px-3 py-2 {% if current_category == 'News' %}bg-primary text-white{% endif %}">News</a>
+                    </li>
+                    <li class="nav-item w-100 {% if current_category == 'SocialMedia' %}active{% endif %}">
+                        <a href="{% url 'blog-index' %}?category=SocialMedia" class="nav-link px-3 py-2 {% if current_category == 'SocialMedia' %}bg-primary text-white{% endif %}">Social Media</a>
+                    </li>
+                    <li class="nav-item w-100 {% if current_category == 'Travel' %}active{% endif %}">
+                        <a href="{% url 'blog-index' %}?category=Travel" class="nav-link px-3 py-2 {% if current_category == 'Travel' %}bg-primary text-white{% endif %}">Travel</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content Column -->
+        <div class="col-md-9 col-xl-10 px-sm-4 py-4 mt-5">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <form method="POST">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <input class="btn btn-primary w-100" type="submit" value="Post">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    {% for post in posts %}
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img class="img-thumbnail" src="{{ post.author.profilemodel.image.url }}" alt="img">
+                                </div>
+                                <div class="col-md-8">
+                                    <small>{{ post.date_created }}</small>
+                                    <span class="badge bg-secondary">{{ post.category }}</span>
+                                    <hr>
+                                    <a class="h5" href="{% url 'blog-post-detail' post.id %}">{{ post.title }}</a>
+                                    <p class="text-justify my-2">
+                                        {{ post.content }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
